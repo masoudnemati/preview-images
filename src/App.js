@@ -75,8 +75,3 @@ const App = () => {
 };
 
 export default App;
-
-// 1. project setup
-// 2. console.log the selected images and show FileList
-// 3. Display images in the browser
-// 4. Fix problems
