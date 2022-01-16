@@ -3,7 +3,6 @@ import "./App.css";
 
 const App = () => {
   const [selectedImages, setSelectedImages] = useState([]);
-
   const onSelectFile = (event) => {
     const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
@@ -20,24 +19,23 @@ const App = () => {
       <label>
         + Add Images
         <br />
-        <span> up to 10 images</span>
+        <span>up to 10 images</span>
         <input
-          name="images"
           type="file"
+          name="images"
           onChange={onSelectFile}
-          accept="image/png, image/jpeg, image/webp"
           multiple
+          accept="image/png , image/jpeg, image/webp"
         />
       </label>
       <br />
+
       {selectedImages.length > 0 &&
         (selectedImages.length > 10 ? (
           <p className="error">
             You can't upload more than 10 images! <br />
             <span>
-              please delete
-              <b> {selectedImages.length - 10} </b>
-              of them
+              please delete <b> {selectedImages.length - 10} </b> of them{" "}
             </span>
           </p>
         ) : (
@@ -51,14 +49,14 @@ const App = () => {
             {selectedImages.length === 1 ? "" : "S"}
           </button>
         ))}
+
       <div className="images">
         {selectedImages &&
           selectedImages.map((image, index) => {
             return (
               <div key={image} className="image">
-                <img src={image} alt="" height="200" />
+                <img src={image} height="200" alt="upload" />
                 <button
-                  key={image}
                   onClick={() =>
                     setSelectedImages(selectedImages.filter((e) => e !== image))
                   }
