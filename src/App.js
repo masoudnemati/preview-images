@@ -3,8 +3,9 @@ import "./App.css";
 
 const App = () => {
   const [selectedImages, setSelectedImages] = useState([]);
+
   const onSelectFile = (event) => {
-    const selectedFiles = event.target.files;
+    let selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
 
     const imagesArray = selectedFilesArray.map((file) => {
@@ -12,7 +13,15 @@ const App = () => {
     });
 
     setSelectedImages((previousImages) => previousImages.concat(imagesArray));
+
+    // FOR BUG IN CHROME
+    event.target.value = "";
   };
+
+  function deleteHandler(image) {
+    setSelectedImages(selectedImages.filter((e) => e !== image));
+    URL.revokeObjectURL(image);
+  }
 
   return (
     <section>
@@ -30,6 +39,8 @@ const App = () => {
       </label>
       <br />
 
+      <input type="file" multiple />
+
       {selectedImages.length > 0 &&
         (selectedImages.length > 10 ? (
           <p className="error">
@@ -42,7 +53,7 @@ const App = () => {
           <button
             className="upload-btn"
             onClick={() => {
-              console.log("UPLOAD IMAGES");
+              console.log(selectedImages);
             }}
           >
             UPLOAD {selectedImages.length} IMAGE
@@ -56,11 +67,7 @@ const App = () => {
             return (
               <div key={image} className="image">
                 <img src={image} height="200" alt="upload" />
-                <button
-                  onClick={() =>
-                    setSelectedImages(selectedImages.filter((e) => e !== image))
-                  }
-                >
+                <button onClick={() => deleteHandler(image)}>
                   delete image
                 </button>
                 <p>{index + 1}</p>
