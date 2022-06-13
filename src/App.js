@@ -5,7 +5,7 @@ const App = () => {
   const [selectedImages, setSelectedImages] = useState([]);
 
   const onSelectFile = (event) => {
-    let selectedFiles = event.target.files;
+    const selectedFiles = event.target.files;
     const selectedFilesArray = Array.from(selectedFiles);
 
     const imagesArray = selectedFilesArray.map((file) => {
